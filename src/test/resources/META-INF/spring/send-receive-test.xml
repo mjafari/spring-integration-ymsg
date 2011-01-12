@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:ymsg="http://www.springframework.org/schema/integration/ymsg"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/integration/ymsg http://www.springframework.org/schema/integration/ymsg/spring-integration-ymsg.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<context:property-placeholder  location="classpath:META-INF/test.properties" />
+	<context:annotation-config />
+	
+	<bean class="java.lang.String" id="receiverYahooId" >
+		<constructor-arg value="${yahoo.receiver.username}"/>
+	</bean>
+	
+	<bean class="java.lang.String" id="messageText">
+		<constructor-arg value="${test.message}"/>
+	</bean>
+	
+	<bean class="java.lang.Integer" id="timeoutMilisecond">
+		<constructor-arg value="${test.recive.timeout.milisecond}"/>
+	</bean>
+	
+	<ymsg:ymsg-connection id="senderConnection" user="${yahoo.sender.username}" password="${yahoo.sender.password}"/>
+	<int:channel id="sendChannel" />
+	<ymsg:outbound-channel-adapter channel="sendChannel" ymsg-connection="senderConnection"/>
+	
+	
+	<ymsg:ymsg-connection id="receiverConnection" user="${yahoo.receiver.username}" password="${yahoo.receiver.password}"/>
+	
+	<ymsg:inbound-channel-adapter channel="receiveChannel" ymsg-connection="receiverConnection"/>
+	
+	<int:channel id="receiveChannel" >
+		<int:queue capacity="1"/>
+	</int:channel>
+
+</beans>
