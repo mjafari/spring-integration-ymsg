@@ -1,9 +1,6 @@
 package com.tosan.spring.integration.ymsg;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +16,13 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+
+/**
+ * 
+ * 
+ * @author mjafari
+ */
 
 @Test
 @ContextConfiguration(locations = {"classpath:META-INF/spring/send-receive-test.xml"})
@@ -50,6 +54,11 @@ public class TestSendReceive extends AbstractTestNGSpringContextTests {
 		// TODO disconnect;
 	}
 
+	/**
+	 * This test method first sends a message to "sendChannel" that will be sent through ymsg:outbound-channel-adapter to receiverYahooId.
+	 * Simultanously defined ymsg:inbound-channel-adapter is putting received messages to receiveChannel (a 1 capacity que channel).
+	 * if receivedMessage (polled from receiveChannel) is equal to messageTesxt, test is passed.
+	 */
 	@Test
 	protected void sendAndReceive() {
 
@@ -60,7 +69,7 @@ public class TestSendReceive extends AbstractTestNGSpringContextTests {
 		sendChannel.send(sentMessage);
 		
 		Message<String> recevedMessage = (Message<String>) receiveChannel
-				.receive(10000);
+				.receive(timeoutMilisecond);
 		Assert.assertEquals(messageText, recevedMessage.getPayload());
 	}
 }

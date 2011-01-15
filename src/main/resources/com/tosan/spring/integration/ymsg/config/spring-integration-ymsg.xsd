@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This schema is a full imitation of spring-integration-xmpp.xsd and commented sections are elements and attributes that have exist in origin schema but not here.
+ -->
 <xsd:schema xmlns="http://www.springframework.org/schema/integration/ymsg"
 			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 			xmlns:beans="http://www.springframework.org/schema/beans"
