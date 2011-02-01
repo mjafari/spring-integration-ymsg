@@ -15,8 +15,8 @@
       <pattern>%d{HH:mm:ss} %5p %c{50}:%4L - %m%n</pattern>
     </encoder>
   </appender>
-  <logger name="com.tosan" level="DEBUG"/>
-  <logger name="org.springframework.integration" level="DEBUG" />
+  <!-- Below logger level should be equal to set to logging-channel-adapter "level" attribute or lower to allow  showing Yahoo changed statuses -->
+  <logger name="org.springframework.integration" level="INFO" />
 	  
   <root level="ERROR">
     <appender-ref ref="S"/>

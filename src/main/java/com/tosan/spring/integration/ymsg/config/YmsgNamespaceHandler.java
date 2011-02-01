@@ -13,10 +13,6 @@ public class YmsgNamespaceHandler extends NamespaceHandlerSupport {
 
 	@Override
 	public void init() {
-		// TODO = In comparison whith XMPP support some element like
-		// presence-inbound-channel-adapter, presence-outbound-channel-adapter
-		// and header-enricher are not implemented.
-		// connection
 		registerBeanDefinitionParser("ymsg-connection",
 				new YmsgConnectionParser());
 
@@ -25,6 +21,12 @@ public class YmsgNamespaceHandler extends NamespaceHandlerSupport {
 				new YmsgInboundChannelAdapterParser());
 		registerBeanDefinitionParser("outbound-channel-adapter",
 				new YmsgOutboundChannelAdapterParser());
+		
+		// presence
+		registerBeanDefinitionParser("presence-inbound-channel-adapter", new YmsgPresenceInboundChannelAdapterParser());
+		registerBeanDefinitionParser("presence-outbound-channel-adapter", new YmsgPresenceOutboundChannelAdapterParser());
+
+		registerBeanDefinitionParser("header-enricher", new YmsgHeaderEnricherParser());
 	}
 
 }

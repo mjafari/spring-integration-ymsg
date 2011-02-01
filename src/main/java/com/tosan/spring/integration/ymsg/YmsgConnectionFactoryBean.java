@@ -99,7 +99,7 @@ public class YmsgConnectionFactoryBean extends
 				this.started = true;
 			}
 			else {
-				throw new GenericYahooException("yahoo user ,ust have text");
+				throw new GenericYahooException("yahoo user must have text");
 			}
 
 		}

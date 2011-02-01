@@ -107,8 +107,7 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
 			<xsd:attribute name="extract-payload" type="xsd:string" default="true">
 				<xsd:annotation>
 					<xsd:documentation>
-					Specifies if generated Message payload should consist of only 
-					the text of the XMPP message or the entire XMPP (Smack API specific) message. Default is true.
+					Currently this attribute is ignored.
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
@@ -190,13 +189,11 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
 		</xsd:complexType>
     </xsd:element>
     
-    <!--
-
 	<xsd:element name="presence-inbound-channel-adapter">
 		
         <xsd:annotation>
 			<xsd:documentation>
-				Configures an endpoint that will forward Presence state changes to a MessageChannel.
+				Configures an endpoint that will forward friends' state changes to a MessageChannel.
 			</xsd:documentation>
 		</xsd:annotation>
         
@@ -205,9 +202,7 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
 			<xsd:attribute name="extract-payload" type="xsd:string" default="true">
 				<xsd:annotation>
 					<xsd:documentation>
-					Specifies if generated Message payload should consist of only 
-					the text of the XMPP Presence message or the entire XMPP Presence (Smack API specific) message. 
-					Default is TRUE.
+					Currently this attribute is ignored.
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
@@ -233,15 +228,15 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
-			<xsd:attribute name="xmpp-connection" type="xsd:string">
+			<xsd:attribute name="ymsg-connection" type="xsd:string">
 				<xsd:annotation>
 					<xsd:appinfo>
 						<tool:annotation kind="ref">
-							<tool:expected-type type="org.jivesoftware.smack.XMPPConnection" />
+							<tool:expected-type type="com.tosan.ymsg.YmsgConnection" />
 						</tool:annotation>
 					</xsd:appinfo>
 					<xsd:documentation>
-						Reference to XMPP connection bean
+						Reference to YMSG connection bean
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
@@ -252,7 +247,7 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
 		
         <xsd:annotation>
 			<xsd:documentation>
-				Configures an endpoint that will publish an updated {@link org.jivesoftware.smack.packet.Presence} state on your {@link XMPPConnection } object.
+				Configures an endpoint that will publish an updated {@link org.openymsg.network.Status} state on your {@link org.openymsg.network.Session} object.
 			</xsd:documentation>
 		</xsd:annotation>
         
@@ -275,15 +270,15 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
-			<xsd:attribute name="xmpp-connection" type="xsd:string">
+			<xsd:attribute name="ymsg-connection" type="xsd:string">
 				<xsd:annotation>
 					<xsd:appinfo>
 						<tool:annotation kind="ref">
-							<tool:expected-type type="org.jivesoftware.smack.XMPPConnection" />
+							<tool:expected-type type="com.tosan.ymsg.YmsgConnection" />
 						</tool:annotation>
 					</xsd:appinfo>
 					<xsd:documentation>
-						Reference to XMPP connection bean
+						Reference to YMSG connection bean
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
@@ -295,7 +290,7 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
         <xsd:complexType>
 			<xsd:annotation>
 				<xsd:documentation>
-					Defines a Transformer for adding XMPP headers.
+					Defines a Transformer for adding YMSG headers.
 				</xsd:documentation>
 			</xsd:annotation>
 			<xsd:complexContent>
@@ -304,7 +299,7 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
 						<xsd:element name="chat-to" type="headerType">
 							<xsd:annotation>
 								<xsd:documentation>
-								The id of the user you sending a message to (e.g., user@gmail.com)
+								The id of the user you sending a message to (e.g., user@yahoo.com)
 								</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
@@ -395,6 +390,4 @@ This schema is a full imitation of spring-integration-xmpp.xsd and commented sec
 			</xsd:annotation>
 		</xsd:attribute>
 	</xsd:complexType>
-</xsd:element>
--->
 </xsd:schema>

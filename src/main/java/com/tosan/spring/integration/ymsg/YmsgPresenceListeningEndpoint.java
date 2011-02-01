@@ -1,31 +1,42 @@
+/**
+ * 
+ */
 package com.tosan.spring.integration.ymsg;
 
 import org.openymsg.network.YahooException;
 import org.openymsg.network.event.SessionAdapter;
-import org.openymsg.network.event.SessionEvent;
+import org.openymsg.network.event.SessionFriendEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.core.MessagingTemplate;
-import org.springframework.integration.support.MessageBuilder;
 import org.springframework.util.Assert;
 
 import com.tosan.ymsg.YmsgConnection;
 
-public class YmsgListeningMessageEndpoint extends AbstractYmsgMessageEndpoint {
-
-	private final YMSGListener listener = new YMSGListener();
+/**
+ * @author mjafari
+ *
+ */
+public class YmsgPresenceListeningEndpoint extends AbstractYmsgMessageEndpoint {
+	
+	Logger logger = LoggerFactory
+			.getLogger(YmsgPresenceListeningEndpoint.class);
+	
+	private final YmsgPresenceListener listener = new YmsgPresenceListener();
 
 	private MessagingTemplate messagingTemplate = new MessagingTemplate();
 
 	private volatile boolean extractPayload = true;
 
-	public YmsgListeningMessageEndpoint() {
+	public YmsgPresenceListeningEndpoint() {
 		super();
 	}
 
-	public YmsgListeningMessageEndpoint(YmsgConnection ymsgConnection) {
+	public YmsgPresenceListeningEndpoint(YmsgConnection ymsgConnection) {
 		super(ymsgConnection);
 	}
-
+	
 	/**
 	 * @param requestChannel the channel on which the inbound message should be
 	 * sent
@@ -49,7 +60,7 @@ public class YmsgListeningMessageEndpoint extends AbstractYmsgMessageEndpoint {
 		super.onInit();
 		this.messagingTemplate.afterPropertiesSet();
 	}
-
+	
 	@Override
 	protected void doStart() {
 		Assert.isTrue(this.initialized,
@@ -79,15 +90,15 @@ public class YmsgListeningMessageEndpoint extends AbstractYmsgMessageEndpoint {
 		}
 
 	}
-
-	private class YMSGListener extends SessionAdapter {
+	
+	private class YmsgPresenceListener extends SessionAdapter {
 
 		@Override
-		public void messageReceived(SessionEvent event) {
-			Object payload = (extractPayload ? event.getMessage() : event);
-			MessageBuilder<?> messageBuilder = MessageBuilder
-					.withPayload(payload);
-			messagingTemplate.send(messageBuilder.build());
+		public void friendsUpdateReceived(SessionFriendEvent event) {
+			if(logger.isDebugEnabled()){
+				logger.debug("friend update = " + event.getUser().getId() + ": " + event.getUser().getStatus());
+			}
+			messagingTemplate.convertAndSend(event);
 		}
 
 	}
