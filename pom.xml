@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tosan.spring.integration.ymsg</groupId>
   <artifactId>spring-integration-ymsg</artifactId>
-  <version>0.6.0-beta2</version>
+  <version>0.6.0-RELEASE</version>
   <description>Spring Integration Support for YMSG (Yahoo Messaging protocol)</description>
 
 	<licenses>

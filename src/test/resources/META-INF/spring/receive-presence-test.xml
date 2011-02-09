@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/integration/ymsg http://www.springframework.org/schema/integration/ymsg/spring-integration-ymsg.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	
-	<context:property-placeholder  location="classpath:META-INF/test.properties" />
+	<context:property-placeholder  location="classpath:META-INF/test.properties,local.properties" ignore-resource-not-found="false"/>
 	<context:annotation-config />
 	
 	<bean class="java.lang.String" id="receiverYahooId" >
